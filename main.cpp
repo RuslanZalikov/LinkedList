@@ -272,18 +272,53 @@ public:
 int main() {
     LinkedList<int> firstList;
     LinkedList<int> secondList;
-    firstList.add(1); firstList.add(2); firstList.add(6); firstList.add(4); firstList.add(5); firstList.add(6); //Первый список
-    firstList.print(); //выводим первый список
+    cout << "Введите первый список: ";
 
-    secondList.add(7); secondList.add(8); secondList.add(9); secondList.add(10); secondList.add(11); secondList.add(12); //Второй список
-    secondList.print(); // выводим второй список
+    string s, buf;
+    getline(cin, s); // считали все в строку
+    s.push_back(' '); // заэкранировали конец строки для получения последнего числа
+    for (int i = 0; i < s.length(); i++){ // цикл в котором сканируются все числа из строки
+        if (s[i] != ' '){ // если не пробел
+            buf += s[i]; // ложить очередной символ в буфер
+        } else {
+            if (buf.length() != 0) // если строка не пустая
+                firstList.add(atoi(buf.c_str())); // преоброзовать в число и положить в вектор
+
+            buf.clear(); // очищаем буфер под следующие символы
+        }
+    }
+
+
+    cout << "Введите второй список: ";
+
+    getline(cin, s); // считали все в строку
+    s.push_back(' '); // заэкранировали конец строки для получения последнего числа
+    for (int i = 0; i < s.length(); i++){ // цикл в котором сканируются все числа из строки
+        if (s[i] != ' '){ // если не пробел
+            buf += s[i]; // ложить очередной символ в буфер
+        } else {
+            if (buf.length() != 0) // если строка не пустая
+                secondList.add(atoi(buf.c_str())); // преоброзовать в число и положить в вектор
+
+            buf.clear(); // очищаем буфер под следующие символы
+        }
+    }
+
+
 
     firstList.addLinkedList(secondList); //сцепляем их
+    cout << "Сцепленный список: ";
     firstList.print(); //выводим сцепленный список
+    cout << "\n";
 
-    cout << "\n" << firstList.len(); // выводим длину сцепленного списка
+    cout << "\nДлина сцепленного списка: " << firstList.len(); // выводим длину сцепленного списка
+    cout << "\n";
 
     LinkedList<int> newList;  //новый список
-    newList = firstList.Double(6); //удваиваем все элементы со значением 6
+    int ch;
+    cout << "\nВведите число, которое хотите удвоить в списке: ";
+    cin >> ch;
+    newList = firstList.Double(ch); //удваиваем все элементы со значением 6
+    cout << "\nНовый список с удвоинными элементами: ";
     newList.print();
 }
